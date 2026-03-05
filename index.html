@@ -213,16 +213,24 @@
     }
     .footer-inner {
       border-top: 1px solid var(--rule);
-      padding-top: 2.5vh;
+      padding-top: 3vh;
       display: flex;
-      justify-content: center;
-      align-items: baseline;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
+    .footer-logo svg {
+      width: 38px;
+      height: 38px;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+    .footer-logo:hover svg { opacity: 1; }
     .footer-copy {
       font-family: 'Marcellus', serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      color: rgba(138,127,116,0.5);
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      color: rgba(138,127,116,0.4);
       text-align: center;
     }
     /* ── ABOUT OVERLAY ── */
@@ -411,7 +419,21 @@
     </div>
     <footer>
       <div class="footer-inner">
-        <span class="footer-copy">PHI &nbsp;·&nbsp; Portraits of Human Intelligence &nbsp;·&nbsp; © 2026, Jo Esterly</span>
+        <div class="footer-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="58" fill="#1C1814"/>
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#B89A6A" stroke-width="0.9" opacity="0.55"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#B89A6A" stroke-width="0.35" opacity="0.25"/>
+            <text x="60" y="55" text-anchor="middle" dominant-baseline="middle"
+              font-family="Marcellus, Georgia, serif" font-size="15" fill="#B89A6A" letter-spacing="5">PHI</text>
+            <line x1="38" y1="62" x2="82" y2="62" stroke="#B89A6A" stroke-width="0.4" opacity="0.35"/>
+            <text x="60" y="71" text-anchor="middle" dominant-baseline="middle"
+              font-family="Marcellus, Georgia, serif" font-size="4.8" fill="#F0EBE1" letter-spacing="2.2" opacity="0.45">PORTRAITS OF</text>
+            <text x="60" y="79" text-anchor="middle" dominant-baseline="middle"
+              font-family="Marcellus, Georgia, serif" font-size="4.8" fill="#F0EBE1" letter-spacing="2.2" opacity="0.45">HUMAN INTELLIGENCE</text>
+          </svg>
+        </div>
+        <span class="footer-copy">© 2026, Jo Esterly</span>
       </div>
     </footer>
   </div>
