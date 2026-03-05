@@ -47,6 +47,7 @@
       mix-blend-mode: multiply;
     }
     .cursor.expanded { width: 44px; height: 44px; background: var(--gold); opacity: 0.25; }
+    @media (hover: none) { .cursor { display: none; } }
     ::selection { background: rgba(184,154,106,0.25); color: var(--ink); }
     /* ── LAYOUT ── */
     .page {
@@ -281,7 +282,9 @@
       text-transform: uppercase;
       color: var(--ash);
       text-align: center;
+      list-style: none;
     }
+    .about-location::before { content: none; }
     .about-phi {
       margin-top: 1.2rem;
       text-align: center;
@@ -404,10 +407,6 @@
           transition: color 0.3s ease;
           cursor: none;
         ">Contact</a>
-      </div>
-      <div class="threshold-quote">
-        <div class="quote-rule"></div>
-        <p class="quote-text">Every fingerprint of intrinsic intelligence carries the echo of the ancient and a lightness of being.</p>
       </div>
     </div>
     <footer>
