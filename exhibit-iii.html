@@ -241,6 +241,57 @@
       color: rgba(106,158,143,0.6);
       margin-bottom: 0.8rem;
     }
+    /* Excerpt block */
+    .dispatch-excerpt {
+      max-width: 520px;
+      margin-top: 1.8rem;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease;
+    }
+    .dispatch-excerpt.open {
+      max-height: 600px;
+      opacity: 1;
+    }
+    .dispatch-excerpt-text {
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-size: clamp(0.95rem, 1.6vw, 1.08rem);
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ash);
+      padding: 1.6rem 0 1.6rem 1.4rem;
+      border-left: 1px solid rgba(106,158,143,0.25);
+    }
+    .dispatch-excerpt-text p + p { margin-top: 1rem; }
+    .dispatch-link-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin-top: 1.4rem;
+    }
+    .dispatch-link-secondary {
+      font-family: 'Marcellus', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(138,127,116,0.45);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: color 0.3s ease;
+      cursor: none;
+    }
+    .dispatch-link-secondary::before {
+      content: '';
+      display: block;
+      width: 14px; height: 1px;
+      background: var(--ash);
+      opacity: 0.3;
+      flex-shrink: 0;
+    }
+    .dispatch-link-secondary:hover { color: var(--ash); }
     /* Abstract mark — floats right, very large, very quiet */
     .dispatch-mark {
       position: absolute;
@@ -273,7 +324,14 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(106,158,143,0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(184,154,106,0.09) 0%, transparent 70%);
+    }
+    #closing::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(184,154,106,0.35), transparent);
     }
     .closing-label {
       font-family: 'Marcellus', serif;
@@ -372,8 +430,8 @@
     <div class="landing-label">Exhibit III &nbsp;·&nbsp; Shadow Resume</div>
     <h1 class="landing-title">Hello,<br><em>AI</em></h1>
     <p class="landing-byline">The correspondence that followed the work into the world.</p>
-    <a href="#dispatch-1" class="enter-btn">Enter Exhibit</a>
-    <div class="scroll-indicator">
+    <a href="#dispatch-1" class="enter-btn" style="display:none;">Enter Exhibit</a>
+    <div class="scroll-indicator" style="animation-delay:1.6s;">
       <span>Scroll</span>
       <div class="scroll-line"></div>
     </div>
@@ -388,9 +446,17 @@
       </h2>
       <div class="dispatch-rule reveal reveal-delay-2"></div>
       <p class="dispatch-platform reveal reveal-delay-2">HashNode</p>
-      <a href="https://jo-phi.hashnode.dev" class="dispatch-link reveal reveal-delay-3" target="_blank" rel="noopener">
-        Read the dispatch
-      </a>
+      <div class="dispatch-link-row reveal reveal-delay-3">
+        <a class="dispatch-link" data-excerpt="excerpt-1">Read an excerpt →</a>
+        <a href="https://jo-phi.hashnode.dev" class="dispatch-link-secondary" target="_blank" rel="noopener">Read in full at HashNode ↗</a>
+      </div>
+      <div class="dispatch-excerpt" id="excerpt-1">
+        <div class="dispatch-excerpt-text">
+          <p>The baker rejects loaves that look fine. She presses her thumb into the crust. The yield — or the resistance — tells her something the sensors cannot.</p>
+          <p>Management reports fifteen percent waste. The quality control log shows a deviation. The recommendation: retrain the baker. What the log cannot show is thirty years of knowing. The slight resistance that tells her the crumb will be dense, the loaf will disappoint, the customer will not return.</p>
+          <p>What if AI could see that? Not the deviation — the intelligence inside the deviation.</p>
+        </div>
+      </div>
       <div class="dispatch-mark" aria-hidden="true">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="100" cy="108" rx="38" ry="52"
@@ -411,9 +477,17 @@
       </h2>
       <div class="dispatch-rule reveal reveal-delay-2"></div>
       <p class="dispatch-platform reveal reveal-delay-2">LinkedIn</p>
-      <a href="https://www.linkedin.com/in/jo-esterly-153a6b3b1" class="dispatch-link reveal reveal-delay-3" target="_blank" rel="noopener">
-        Read the dispatch
-      </a>
+      <div class="dispatch-link-row reveal reveal-delay-3">
+        <a class="dispatch-link" data-excerpt="excerpt-2">Read an excerpt →</a>
+        <a href="https://www.linkedin.com/in/jo-esterly-153a6b3b1" class="dispatch-link-secondary" target="_blank" rel="noopener">Read in full at LinkedIn ↗</a>
+      </div>
+      <div class="dispatch-excerpt" id="excerpt-2">
+        <div class="dispatch-excerpt-text">
+          <p>Every system that learns from data learns to see patterns. But what happens when the most important signal is the deviation from the pattern?</p>
+          <p>The delivery driver who slows down at the intersection three seconds before the light changes. The nurse who notices the patient is too quiet. The mechanic who hears something that isn't there yet.</p>
+          <p>These are not errors. They are the signal. And we are training AI to correct them.</p>
+        </div>
+      </div>
       <div class="dispatch-mark" aria-hidden="true">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M20 80 Q40 40 60 80 Q80 120 100 80 Q120 40 140 80 Q160 120 180 80"
@@ -433,9 +507,17 @@
       </h2>
       <div class="dispatch-rule reveal reveal-delay-2"></div>
       <p class="dispatch-platform reveal reveal-delay-2">Prepared for arXiv &nbsp;·&nbsp; Preprint</p>
-      <a href="mailto:PHI@joesterly.com?subject=Preprint%20Request" class="dispatch-link reveal reveal-delay-3">
-        Request the Preprint
-      </a>
+      <div class="dispatch-link-row reveal reveal-delay-3">
+        <a class="dispatch-link" data-excerpt="excerpt-3">Read an excerpt →</a>
+        <a href="mailto:PHI@joesterly.com?subject=Preprint%20Request" class="dispatch-link-secondary">Request the full preprint ↗</a>
+      </div>
+      <div class="dispatch-excerpt" id="excerpt-3">
+        <div class="dispatch-excerpt-text">
+          <p>AI systems are trained to recognise patterns. But the intelligence that matters most in human work is often the intelligent deviation — the expert who sees what the pattern misses.</p>
+          <p>This paper proposes PHI: Portraits of Human Intelligence — a framework for expanding the field of view of AI evaluation to include tacit knowledge, embodied expertise, and threshold recognition.</p>
+          <p>Tested with a single portrait, a language model shifted from recommending correction to asking whether the human might be detecting something the sensors were missing. Recognition improved substantially with minimal data.</p>
+        </div>
+      </div>
       <div class="dispatch-mark" aria-hidden="true">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
           <line x1="100" y1="160" x2="30"  y2="40"
@@ -464,7 +546,20 @@
       </div>
     </div>
     <a href="index.html" class="closing-back reveal reveal-delay-2">Jo Esterly</a>
-    <p class="closing-copyright reveal reveal-delay-2">PHI &nbsp;·&nbsp; Portraits of Human Intelligence &nbsp;·&nbsp; © 2026, Jo Esterly</p>
+    <div style="margin-top:2rem; opacity:0.4;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="32" height="32">
+        <circle cx="60" cy="60" r="58" fill="#F0EBE1" opacity="0.08"/>
+        <circle cx="60" cy="60" r="52" fill="none" stroke="#B89A6A" stroke-width="1" opacity="0.5"/>
+        <text x="60" y="55" text-anchor="middle" dominant-baseline="middle"
+          font-family="Marcellus, Georgia, serif" font-size="15" fill="#B89A6A" letter-spacing="5">PHI</text>
+        <line x1="38" y1="62" x2="82" y2="62" stroke="#B89A6A" stroke-width="0.5" opacity="0.35"/>
+        <text x="60" y="71" text-anchor="middle" dominant-baseline="middle"
+          font-family="Marcellus, Georgia, serif" font-size="4.8" fill="#F0EBE1" letter-spacing="2.2" opacity="0.4">PORTRAITS OF</text>
+        <text x="60" y="79" text-anchor="middle" dominant-baseline="middle"
+          font-family="Marcellus, Georgia, serif" font-size="4.8" fill="#F0EBE1" letter-spacing="2.2" opacity="0.4">HUMAN INTELLIGENCE</text>
+      </svg>
+    </div>
+    <p style="margin-top:0.6rem; font-family:'Marcellus',serif; font-size:0.5rem; letter-spacing:0.18em; color:rgba(239,240,240,0.18);">© 2026, Jo Esterly</p>
   </section>
   <script>
     // Cursor
@@ -476,6 +571,22 @@
     document.querySelectorAll('a').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+    });
+    // Excerpt toggles
+    document.querySelectorAll('[data-excerpt]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const id = link.getAttribute('data-excerpt');
+        const excerpt = document.getElementById(id);
+        const isOpen = excerpt.classList.contains('open');
+        // Close all others
+        document.querySelectorAll('.dispatch-excerpt').forEach(ex => ex.classList.remove('open'));
+        document.querySelectorAll('[data-excerpt]').forEach(l => l.textContent = 'Read an excerpt →');
+        if (!isOpen) {
+          excerpt.classList.add('open');
+          link.textContent = 'Close excerpt ←';
+        }
+      });
     });
     // Reveal on scroll
     const revealObs = new IntersectionObserver(entries => {
