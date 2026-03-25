@@ -1,1 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jo Esterly -- The Sketchbook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Marcellus&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #f5efe6;
+      --warm-white: #faf7f2;
+      --ink: #1c1814;
+      --ash: #8a7f74;
+      --sienna: #a67c52;
+      --rule: rgba(28,24,20,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--warm-white);
+      color: var(--ink);
+      overflow-x: hidden;
+      cursor: none;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 9998;
+    }
+    .cursor {
+      position: fixed;
+      width: 6px; height: 6px;
+      background: var(--ink);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease, background 0.4s ease, opacity 0.4s ease;
+      mix-blend-mode: multiply;
+    }
+    .cursor.expanded { width: 44px; height: 44px; background: var(--sienna); opacity: 0.22; }
+    @media (hover: none) { .cursor { display: none; } body { cursor: auto; } }
+    ::selection { background: rgba(166,124,82,0.25); color: var(--ink); }
 
+    /* -- LAYOUT -- */
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 clamp(2rem, 8vw, 5rem);
+    }
+
+    /* -- HEADER -- */
+    header {
+      padding: 12vh 0 8vh;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 1.2s ease 0.3s forwards;
+    }
+    .close-link {
+      position: fixed;
+      top: 2.4rem;
+      right: clamp(1.5rem, 4vw, 3.5rem);
+      font-family: 'Marcellus', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ash);
+      background: none;
+      border: none;
+      text-decoration: none;
+      cursor: none;
+      transition: color 0.3s ease;
+      z-index: 100;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.2s forwards;
+    }
+    .close-link:hover { color: var(--ink); }
+    .page-label {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(0.6rem, 1vw, 0.7rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--sienna);
+      margin-bottom: 1.5rem;
+    }
+    .page-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .page-subtitle {
+      font-size: clamp(0.9rem, 1.4vw, 1rem);
+      font-style: italic;
+      color: #6e6459;
+    }
+
+    /* -- SKETCHES -- */
+    .sketches {
+      padding: 4vh 0 12vh;
+    }
+    .sketch {
+      padding: 6vh 0;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .sketch.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .sketch:first-child {
+      border-top: 1px solid var(--rule);
+    }
+    .sketch:last-child {
+      border-bottom: none;
+    }
+    .sketch-text {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      font-style: italic;
+      line-height: 2;
+      color: var(--ink);
+    }
+    .sketch-dot {
+      display: block;
+      text-align: center;
+      font-size: 1.5rem;
+      color: var(--ash);
+      opacity: 0.4;
+      margin-top: 3vh;
+      letter-spacing: 0.5em;
+    }
+
+    /* -- FOOTER -- */
+    footer {
+      padding: 8vh 0 6vh;
+      text-align: center;
+      border-top: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeIn 1s ease 1s forwards;
+    }
+    .footer-nav {
+      margin-bottom: 4vh;
+    }
+    .footer-nav a {
+      font-family: 'Marcellus', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #6e6459;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-nav a:hover { color: var(--ink); }
+    .footer-copy {
+      font-family: 'Marcellus', serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.18em;
+      color: rgba(138,127,116,0.5);
+    }
+
+    /* -- ANIMATIONS -- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+
+  <div class="page">
+    <a href="index.html" class="close-link">Close ×</a>
+    
+    <header>
+      <h1 class="page-title">Before the portrait, the sketch.</h1>
+      <p class="page-subtitle">Moments from the real world.</p>
+    </header>
+
+    <section class="sketches">
+      <article class="sketch">
+        <p class="sketch-text">Two baristas move around the espresso machines with the pace and grace of modern choreography. Between them stands a repairman that has generic coffee before he leaves home. He ignores the rush and affront around his presence as a stationary center pole in front of the broken dishwasher. Carefully and slowly he wraps blue tape, cutting another small piece with his teeth, around a hose the diameter of a thin straw to relieve the baristas from washing dishes.</p>
+        <span class="sketch-dot">...</span>
+      </article>
+
+      <article class="sketch">
+        <p class="sketch-text">Late Saturday afternoon. Leaving the grand theater that gives him pride only when he name drops to a stranger, he stopped to talk to a colleague sitting near the door. They trade excuses of paperwork, of staying, of duties. Both stand ready to leave, heating up under heavy coats, putting off even delaying.</p>
+        <span class="sketch-dot">...</span>
+      </article>
+
+      <article class="sketch">
+        <p class="sketch-text">The wave of response of surprise, then delight, at a squirrel running across the outfield at the premium baseball stadium, oblivious yet perfectly in tune with where he is to be.</p>
+        <span class="sketch-dot">...</span>
+      </article>
+
+      <article class="sketch">
+        <p class="sketch-text">Rushing down a street, ignoring storefronts, ads, names, numbers, a word grabbed her attention without slowing her pace. The meaning tumbled in her mind, following her. Then opened into a new space of possibility that had not been there.</p>
+        <span class="sketch-dot">...</span>
+      </article>
+
+      <article class="sketch">
+        <p class="sketch-text">It is spring, and the soil will hold no record of the hands pressing the seeds into the wet, dark earth.</p>
+      </article>
+    </section>
+
+    <footer>
+      <nav class="footer-nav">
+        <a href="index.html">Return</a>
+      </nav>
+      <p class="footer-copy">2026, Jo Esterly</p>
+    </footer>
+  </div>
+
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+    });
+    // Scroll reveal
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.sketch').forEach(el => revealObs.observe(el));
+  </script>
+</body>
+</html>
